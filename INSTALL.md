@@ -24,37 +24,42 @@ cargo install alacritty
 
 # Manual Installation
 
-1. [Prerequisites](#prerequisites)
-    1. [Source Code](#clone-the-source-code)
-    2. [Rust Compiler](#install-the-rust-compiler-with-rustup)
-    3. [Dependencies](#dependencies)
-        1. [Debian/Ubuntu](#debianubuntu)
-        2. [Arch Linux](#arch-linux)
-        3. [Fedora](#fedora)
-        4. [CentOS/RHEL 7](#centosrhel-7)
-        5. [openSUSE](#opensuse)
-        6. [Slackware](#slackware)
-        7. [Void Linux](#void-linux)
-        8. [FreeBSD](#freebsd)
-        9. [OpenBSD](#openbsd)
-        10. [Solus](#solus)
-        11. [NixOS/Nixpkgs](#nixosnixpkgs)
-        12. [Gentoo](#gentoo)
-        13. [Clear Linux](#clear-linux)
-        14. [GNU Guix](#gnu-guix)
-        15. [Windows](#windows)
-        16. [Other](#other)
-2. [Building](#building)
-    1. [Linux/Windows](#linux--windows)
-    2. [macOS](#macos)
-3. [Post Build](#post-build)
-    1. [Terminfo](#terminfo)
-    2. [Desktop Entry](#desktop-entry)
-    3. [Manual Page](#manual-page)
-    4. [Shell completions](#shell-completions)
-        1. [Zsh](#zsh)
-        2. [Bash](#bash)
-        3. [Fish](#fish)
+- [Third Party Repositories](#third-party-repositories)
+  - [Fedora](#fedora)
+  - [Cargo](#cargo)
+- [Manual Installation](#manual-installation)
+  - [Prerequisites](#prerequisites)
+    - [Clone the source code](#clone-the-source-code)
+    - [Install the Rust compiler with `rustup`](#install-the-rust-compiler-with-rustup)
+    - [Dependencies](#dependencies)
+      - [Debian/Ubuntu](#debianubuntu)
+      - [Arch Linux](#arch-linux)
+      - [Fedora](#fedora-1)
+      - [CentOS/RHEL 7](#centosrhel-7)
+      - [openSUSE](#opensuse)
+      - [Slackware](#slackware)
+      - [Void Linux](#void-linux)
+      - [FreeBSD](#freebsd)
+      - [OpenBSD](#openbsd)
+      - [Solus](#solus)
+      - [NixOS/Nixpkgs](#nixosnixpkgs)
+      - [Gentoo](#gentoo)
+      - [Clear Linux](#clear-linux)
+      - [GNU Guix](#gnu-guix)
+      - [Windows](#windows)
+      - [Other](#other)
+  - [Building](#building)
+    - [Linux / Windows](#linux--windows)
+    - [macOS](#macos)
+  - [Post Build](#post-build)
+    - [Terminfo](#terminfo)
+    - [Desktop Entry](#desktop-entry)
+    - [Debian/Ubuntu](#debianubuntu-1)
+  - [Manual Page](#manual-page)
+    - [Shell completions](#shell-completions)
+      - [Zsh](#zsh)
+      - [Bash](#bash)
+      - [Fish](#fish)
 
 ## Prerequisites
 
@@ -88,9 +93,23 @@ drivers installed too (these are called `libegl1-mesa-dev` on Ubuntu).
 
 #### Debian/Ubuntu
 
-If you'd like to build a local version manually, you need a few extra libraries
-to build Alacritty. Here's an apt command that should install all of them. If
-something is still found to be missing, please open an issue.
+You can build alacritty using `cargo deb` and use your system's package manager
+to maintain the application.
+
+```sh
+cargo install cargo-deb
+cargo deb --install -p alacritty
+```
+
+To choose a default terminal app, use Debian's `update-alternatives`.
+
+```sh
+update-alternatives --config x-terminal-emulator
+```
+
+If you'd still like to build a local version manually, you need a few extra
+libraries to build Alacritty. Here's an apt command that should install all of
+them. If something is still found to be missing, please open an issue.
 
 ```sh
 apt-get install cmake pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev python3
@@ -289,11 +308,22 @@ sudo desktop-file-install extra/linux/Alacritty.desktop
 sudo update-desktop-database
 ```
 
-If you are having problems with Alacritty's logo, you can replace it with
-prerendered PNGs and simplified SVGs available in the `extra/logo/compat`
-directory.
+### Debian/Ubuntu
 
-### Manual Page
+Using `cargo deb`, you can create and install a deb file.
+
+```sh
+cargo install cargo-deb
+cargo deb --install -p alacritty
+```
+
+To choose a default terminal app, use Debian's `update-alternatives`.
+
+```sh
+update-alternatives --config x-terminal-emulator
+```
+
+## Manual Page
 
 Installing the manual page requires the additional dependency `gzip`.
 
